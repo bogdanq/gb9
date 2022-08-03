@@ -1,17 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { FunctionComponent, ClassComponent } from "./example";
+// import "./index.css";
+import styles from "./index.module.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const age = 23;
+const films = [
+  { title: "film1", year: 2020 },
+  { title: "film2", year: 2020 },
+];
+const handleClick = (film) => {
+  console.log("click", film);
+};
+
+// witout jsx
+const Component = () => {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement("h1", null, "hello JSX")
+  );
+};
+
+const Parent = () => {
+  return (
+    <div className={styles.test}>
+      <Component />
+      <FunctionComponent age={age} films={films} handleClick={handleClick} />
+      <hr />
+      <ClassComponent
+        age={age}
+        films={films}
+        handleClick={handleClick}
+        p1={false}
+        p2={{}}
+      />
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Parent />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
