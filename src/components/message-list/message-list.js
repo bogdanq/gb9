@@ -4,6 +4,7 @@ import { InputAdornment } from "@mui/material";
 import { Message } from "./message";
 import { Input, SendIcon } from "./styles";
 
+// @TODO  переделать как в https://codesandbox.io/s/gbchat-router-7fg2fn?file=/src/App.js:1887-1898
 export const MessageList = () => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState("");

@@ -2,6 +2,7 @@ import { List } from "@mui/material";
 import { useCallback, useState } from "react";
 import { Chat } from "./chat";
 
+// @TODO переделать на роутер (использовать NavLink to={`/chat/${chat}`})
 export const ChatList = () => {
   const [chatList] = useState(["room1", "room2", "room3"]);
   const [selectedRoom, setSeledRoom] = useState("room1");
