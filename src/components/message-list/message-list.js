@@ -63,6 +63,7 @@ export const MessageList = () => {
       </div>
 
       <Input
+        autoFocus
         fullWidth
         placeholder="Введите сообщение..."
         value={value}
