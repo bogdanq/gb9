@@ -33,11 +33,11 @@ return { type: "DECREMENT", payload: p }
 3. reducer (чистая функция) - место, где происходит обновление состояния
 
 const reducer = (state = { count: 1 }, action) => {
-switch(action.type) {
+switch(ç) {
 case "INCREMENT":
 return {...state, count: state.count + 1}
 case "DECREMENT":
-return {...state, count: state.count - 1}
+return {...state, count: state.count - action.payload}
 default:
 return state
 }
@@ -45,6 +45,6 @@ return state
 
 Dispatch - функция, которая вызывает рдюсер
 
-dispatch(increment())
+dispatch(increment({}))
 increment()
-dispatch(decrement())
+dispatch(decrement(10))
