@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import PropTypes from "prop-types";
 import { InputAdornment } from "@mui/material";
-import { sendMessage, messagessSelector } from "../../store/messages";
+import { sendMessageWithBot, messagessSelector } from "../../store/messages";
 import { Message } from "./message";
 import { Input, SendIcon } from "./styles";
 
@@ -30,7 +30,7 @@ export const MessageList = () => {
   const send = useCallback(
     (message, author = "User") => {
       if (message) {
-        dispatch(sendMessage(roomId, { message, author }));
+        dispatch(sendMessageWithBot(roomId, { message, author }));
         setValue("");
       }
     },
@@ -85,7 +85,7 @@ export const MessageList = () => {
         onKeyPress={handlePressInput}
         endAdornment={
           <InputAdornment position="end">
-            {value && <SendIcon onClick={send} />}
+            {value && <SendIcon onClick={() => send(value)} />}
           </InputAdornment>
         }
       />
