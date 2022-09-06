@@ -12,6 +12,7 @@ const initialState = {
 
 // [...state.message.room1]
 // [...state.message[roomId]]
+// format(new Date(message?.date), "yyyy-MM-dd HH:MM:SS")
 
 export const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
