@@ -3,9 +3,9 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  deleteConversation,
-  createConversation,
+  createConversationByName as createConversation,
   conversationsSelector,
+  removeConversationByName,
 } from "../../store/conversations";
 import { Chat } from "./chat";
 
@@ -20,7 +20,7 @@ export const ChatList = () => {
   const deleteConversationByName = useCallback(
     (name, e) => {
       e.preventDefault();
-      dispatch(deleteConversation(name));
+      dispatch(removeConversationByName(name));
       navigate("/chat");
     },
     [dispatch, navigate]
