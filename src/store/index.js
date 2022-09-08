@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { getPublicApi } from "../api/gists";
+import { getPublicApi, searchGistsByNameApi } from "../api/gists";
 import { counterReducer } from "./counter";
 import { profileReducer } from "./profile";
 import { conversationsReducer } from "./conversations";
@@ -10,7 +10,7 @@ import { messagesReducer } from "./messages";
 import { gistsReducer } from "./gists";
 import { logger, timeScheduler, botMessage } from "./middlewares";
 
-const api = { getPublicApi };
+const api = { getPublicApi, searchGistsByNameApi };
 
 const persistConfig = {
   key: "gbchat",

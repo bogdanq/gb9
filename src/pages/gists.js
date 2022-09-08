@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGists } from "../store/gists";
+import { getGists, searchGists } from "../store/gists";
 
 // const getGists = async (page = 1) => {
 //   const URL = `https://api.github.com/gists/public?page=${page}`;
@@ -14,7 +14,14 @@ import { getGists } from "../store/gists";
 const buttons = Array.from({ length: 10 }).map((_, index) => index + 1);
 
 export const GistsPage = () => {
-  const { gists, pending, error } = useSelector((state) => state.gists);
+  const {
+    gists,
+    pending,
+    error,
+    gistsBySearch,
+    pendingBySearch,
+    errorBySearch,
+  } = useSelector((state) => state.gists);
   const dispatch = useDispatch();
   // const [gists, setGists] = useState([]);
   // const [pending, setPending] = useState(false);
@@ -39,7 +46,13 @@ export const GistsPage = () => {
     }
   }, [dispatch, gists]);
 
-  if (error) {
+  useEffect(() => {
+    if (!gistsBySearch.length) {
+      dispatch(searchGists());
+    }
+  }, [dispatch, gistsBySearch]);
+
+  if (error || errorBySearch) {
     return <h1>error ...</h1>;
   }
 
@@ -60,6 +73,20 @@ export const GistsPage = () => {
         <h1>pending...</h1>
       ) : (
         gists.map((gist, index) => {
+          return (
+            <div key={index}>
+              <h2>{gist.url}</h2>
+            </div>
+          );
+        })
+      )}
+
+      <hr />
+
+      {pendingBySearch ? (
+        <h1>pending...</h1>
+      ) : (
+        gistsBySearch.map((gist, index) => {
           return (
             <div key={index}>
               <h2>{gist.url}</h2>
