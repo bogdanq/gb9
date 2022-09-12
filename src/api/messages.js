@@ -1,28 +1,20 @@
 import { get, child, ref, push } from "firebase/database";
+import { nanoid } from "nanoid";
 import { database } from "./firebase";
 
 export const getMessagesApi = () => {
   return get(child(ref(database), "messages"));
 };
 
-export const createMessageApi = (message, roomId) => {
-  return push(child(ref(database), `messages/${roomId}`), message);
+export const createMessageApi = async (message, roomId) => {
+  const newMessage = { ...message, id: nanoid(), date: String(new Date()) };
+
+  await push(child(ref(database), `messages/${roomId}`), newMessage);
+
+  return newMessage;
 };
 
-// @TODO  перенести в санк
-const normilizeData = async () => {
-  const messages = {};
-
-  const snapshot = await getMessagesApi();
-
-  snapshot.forEach((snap) => {
-    messages[snap.key] = Object.values(snap.val());
-  });
-
-  console.log("messages", messages);
-};
-
-// export const removeConversationApi = (conversation) => {
+// export const removeMessageApi = (roomId, messageId) => {
 //   return remove(child(ref(database), `conversations/${conversation}`));
 // };
 

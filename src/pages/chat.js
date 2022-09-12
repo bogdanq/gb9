@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { MessageList, Layout, ChatList } from "../components";
 import { getConversations } from "../store/conversations";
+import { getMessages } from "../store/messages";
 
 export const ChatPage = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ export const ChatPage = () => {
 
   useEffect(() => {
     dispatch(getConversations());
+    dispatch(getMessages());
   }, [dispatch]);
 
   return (

@@ -1,13 +1,16 @@
 import { nanoid } from "nanoid";
-import { SEND_MESSAGE, DELETE_MESSAGE } from "./types";
+import {
+  SEND_MESSAGE,
+  DELETE_MESSAGE,
+  GET_MESSAGES_START,
+  GET_MESSAGES_SUCCESS,
+  GET_MESSAGES_ERROR,
+} from "./types";
 
 const initialState = {
-  messages: {
-    room1: [
-      { author: "User", message: "test", date: new Date(), id: nanoid() },
-      { author: "Bot", message: "test", date: new Date(), id: nanoid() },
-    ],
-  },
+  messages: {},
+  error: null,
+  pending: false,
 };
 
 // [...state.message.room1]
@@ -22,7 +25,7 @@ export const messagesReducer = (state = initialState, action) => {
           ...state.messages,
           [action.payload.roomId]: [
             ...(state.messages[action.payload.roomId] ?? []),
-            { ...action.payload.message, id: nanoid(), date: new Date() },
+            action.payload.message,
           ],
         },
       };
@@ -37,6 +40,13 @@ export const messagesReducer = (state = initialState, action) => {
           ),
         },
       };
+
+    case GET_MESSAGES_START:
+      return { ...state, pending: true, error: null };
+    case GET_MESSAGES_SUCCESS:
+      return { ...state, pending: false, messages: action.payload };
+    case GET_MESSAGES_ERROR:
+      return { ...state, pending: false, error: action.payload };
 
     default:
       return state;
