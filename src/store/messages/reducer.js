@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import {
   SEND_MESSAGE,
   DELETE_MESSAGE,
@@ -7,7 +6,7 @@ import {
   GET_MESSAGES_ERROR,
 } from "./types";
 
-const initialState = {
+export const initialState = {
   messages: {},
   error: null,
   pending: false,
@@ -16,7 +15,7 @@ const initialState = {
 // [...state.message.room1]
 // [...state.message[roomId]]
 
-export const messagesReducer = (state = initialState, action) => {
+export const messagesReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SEND_MESSAGE:
       return {
